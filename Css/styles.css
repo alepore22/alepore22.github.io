@@ -24,6 +24,10 @@
     padding-right: 4px;
 }
 
+.navbar_contact_link:hover {
+    opacity: 60%;
+}
+
 .navbar p{
     font-family: "Josefin Sans", sans-serif;
     font-weight: bold;

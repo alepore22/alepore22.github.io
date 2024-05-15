@@ -1,6 +1,11 @@
 *{
     padding-left: 0;
     padding-right: 0;
+    font-family: "Josefin Sans", sans-serif;
+}
+
+body{
+    margin: 0;
 }
 
 
@@ -19,6 +24,15 @@
     padding-right: 8px;
 }
 
+.navbar p{
+    margin-left: 2em;
+    font-weight: bold;
+}
+
+.navbar_contact{
+    margin-right: 2em;
+}
+
 .navbar_contact_link{
     padding-left: 4px;
     padding-right: 4px;
@@ -26,11 +40,6 @@
 
 .navbar_contact_link:hover {
     opacity: 60%;
-}
-
-.navbar p{
-    font-family: "Josefin Sans", sans-serif;
-    font-weight: bold;
 }
 
 .hello {
@@ -54,11 +63,50 @@
 }
 
 .wrapper{
-    font-family: "Josefin Sans", sans-serif;
     padding-top: 55px;
     text-align: center;
 }
 
+b {
+    font-size: 7vh;
+}
+
+.content{
+    padding-left: 8em;
+    padding-right: 8em;
+}
+
+.content_section{
+    font-size: 6vh;
+}
+
+.content_section_email-button{
+    display: inline-block;
+    text-decoration: none;
+    text-align: right;
+    font-size: 3vh;
+    color: white;
+    background: black;
+    padding-top: 12px;
+    padding-bottom: 8px;
+    padding-left: 18px;
+    padding-right: 18px;
+    border-radius: 60px;
+    float: right;
+    margin-right: 5em;
+    margin-top: 6px;
+}
+
+#secondPresentation{
+    margin-top: 3em;
+}
+
+
+footer{
+    background-color: #272727;
+    bottom: 0;
+    height: 150px;
+}
 
 @media screen and (max-width:900px), screen and (max-height:500px) {
    
@@ -68,6 +116,14 @@
     align-items: center;
    }
 
+   .navbar p{
+    margin-left: 0em;
+   }
+
+   .navbar_contact{
+    margin-right: 0em;
+   }
+
    .profilePic{
     padding-left: 12px;
    }
@@ -75,4 +131,27 @@
    .wrapper{
     padding-top: 0px;
    }
+
+
+   .content{
+    padding-left: 2em;
+    padding-right: 2em;
+    }
+
+   .content_section{
+    font-size: 4vh;
+    }      
+
+   
+    .content_section_email-button{
+        margin-right: 0;
+        margin-left: 0;
+        float: none;
+        text-align: center;
+    }
+
+    #secondPresentation{
+        margin-top: 1em;
+    }
+    
 }

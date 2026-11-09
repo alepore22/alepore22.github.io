@@ -1,50 +1,50 @@
 ---
 title: Pharos
-year: 2024
-field: interfaces
-kind: macOS app, UX and UI
-summary: "A macOS app where students share their stories, find peers and open doors for their careers."
-role: UX and UI design
+date: "12.2024"
+category: UI/UX Design
+summary: "Un’app per macOS dove gli studenti condividono le loro storie, trovano colleghi e aprono porte per la loro carriera."
+role: UX e UI design
 with: Serena Tizzano
 tools: [Figma]
 cover: ../../assets/covers/pharos.webp
-coverAlt: "Pharos cover: the app open on a MacBook, with its title and a one-line description."
+coverAlt: "Copertina di Pharos: l’app aperta su un MacBook, con titolo e descrizione."
+coverPosition: "70% 50%"
+color: "#d9e8ff"
+ink: "#25242e"
 behance: https://www.behance.net/gallery/214804051/Pharos
-order: 1
+order: 6
 ---
 
-Students often feel isolated and short of connections in their field, which holds back their growth and their chances to work with others. Pharos is a macOS app built for that gap: a place where students share stories and experiences, and find peers, job prospects and new opportunities.
+Gli studenti spesso si sentono isolati e con pochi contatti nel loro campo, e questo frena la loro crescita e la possibilità di lavorare con altri. Pharos è un’app per macOS nata per colmare questo vuoto: un posto dove condividere storie ed esperienze, e trovare colleghi, opportunità di lavoro e scambi culturali.
 
-We worked through five stages: empathise, define, prototype, test and deliver.
+Abbiamo lavorato in cinque fasi: empatizzare, definire, prototipare, testare e consegnare.
 
-![The five stages of the process: empathise, define, prototype, test and project delivery.](../../assets/work/pharos/01.webp)
+![Le cinque fasi del processo: empathize, define, prototype, test e project delivery.](../../assets/work/pharos/01.webp)
 
-## Problem and concept
+## Problema e soluzione
 
-The problem statement and the answer to it, side by side.
+![Problem statement e solution concept, ognuno sotto una lampadina disegnata.](../../assets/work/pharos/02.webp)
 
-![Problem statement and solution concept, each under a drawn light bulb.](../../assets/work/pharos/02.webp)
+## Per chi è
 
-## Who it is for
+Il lavoro è partito da una persona, Joshua, studente di informatica di 24 anni, e dalle user story di quello che gli serve: uno spazio sicuro per fare domande, colleghi del suo campo, mentor ed ex studenti, e progetti veri a cui partecipare.
 
-The work started from a persona, Joshua, a 24-year-old informatics student, and from the user stories behind what he needs: a safe space to ask questions, peers in his field, mentors and alumni, and real projects to join.
+![La scheda persona di Joshua con bisogni, obiettivi e quattro user story.](../../assets/work/pharos/03.webp)
 
-![Persona card for Joshua with his needs, goals and four user stories.](../../assets/work/pharos/03.webp)
+## Test
 
-## Testing
+Un test di usabilità A/B con due gruppi di cinque persone, confrontando l’esperienza con due strumenti esistenti prima di scegliere la struttura finale.
 
-An A/B usability test with two groups of five people, comparing the experience against two existing tools before settling on the final structure.
+![La tavola del test di usabilità: scopo, panoramica, struttura e osservazioni.](../../assets/work/pharos/04.webp)
 
-![Usability testing board: purpose, overview, structure and observations, with two laptops facing each other.](../../assets/work/pharos/04.webp)
+## Le schermate
 
-## The screens
+Registrazione, accesso, il feed principale, il profilo, la scrittura di una storia e la sua lettura.
 
-Sign up, sign in, the main feed, the profile, writing a story and reading one.
+![Sei schermate di Pharos su laptop.](../../assets/work/pharos/05.webp)
 
-![Six Pharos screens on laptops: sign up, main, profile, sign in, creation of the story and story.](../../assets/work/pharos/05.webp)
+## Tipografia e colori
 
-## Type and colour
+SF Pro per la leggibilità, una base in scala di grigi per uno sfondo calmo e professionale, e i colori primari riservati ai feedback: verde per il successo, rosso per gli errori, blu per le azioni.
 
-SF Pro for readability, a greyscale base for a calm, professional backdrop, and primary colours kept for feedback: green for success, red for errors, blue for actions.
-
-![Typography and colour palette: SF Pro weights and the greyscale and feedback colours.](../../assets/work/pharos/06.webp)
+![Tipografia e palette: i pesi di SF Pro e i colori di feedback.](../../assets/work/pharos/06.webp)

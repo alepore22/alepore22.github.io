@@ -1,0 +1,28 @@
+---
+// A hand-drawn looping arrow, like the ones pointing at things in the PDF.
+// It draws itself when its section comes into view.
+interface Props { class?: string; flip?: boolean; down?: boolean }
+const { class: className, flip = false, down = false } = Astro.props;
+---
+
+<svg
+  class:list={['arrow', className, { flip, down }]}
+  viewBox="0 0 90 70" fill="none" aria-hidden="true"
+  stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"
+>
+  <path pathLength="1" d="M6 12c22-10 44-4 40 14-3 13-19 10-14-1 6-12 28-9 37 6 6 10 8 20 8 30" />
+  <path pathLength="1" d="M68 50l9 12 8-12" />
+</svg>
+
+<style>
+  .arrow { width: 72px; height: auto; overflow: visible; }
+  .flip { transform: scaleX(-1); }
+  .down { transform: rotate(18deg); }
+  .flip.down { transform: scaleX(-1) rotate(18deg); }
+  :global(.js) .arrow path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 900ms var(--ease) 300ms; }
+  :global(.js) .arrow path + path { transition-delay: 1100ms; transition-duration: 300ms; }
+  :global(.js .is-in) .arrow path, :global(.js) .is-in.arrow path { stroke-dashoffset: 0; }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .arrow path { stroke-dashoffset: 0; }
+  }
+</style>

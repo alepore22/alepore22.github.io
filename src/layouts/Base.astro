@@ -5,19 +5,27 @@ import { site } from '../site';
 interface Props {
   title?: string;
   description?: string;
+  /** Background behind the navigation bar, to sit on the first section's colour. */
+  barTone?: string;
+  /** Text colour of the navigation bar. */
+  barInk?: string;
+  /** Background behind the footer strip, to continue the last section's colour. */
+  footTone?: string;
 }
 
 const {
   title = `${site.name}, ${site.role}`,
-  description = `${site.name} is a ${site.role} from ${site.city}. Apps, case studies and line drawings.`,
+  description = `${site.name}, ${site.role} a ${site.city}. App, UI/UX, grafica e illustrazione.`,
+  barTone = 'var(--cream)',
+  barInk = 'var(--ink)',
+  footTone = 'var(--cream)',
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL('/og.png', Astro.site);
-const year = new Date().getFullYear();
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="it">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -26,7 +34,9 @@ const year = new Date().getFullYear();
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#aa80ff" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="it_IT" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -35,14 +45,14 @@ const year = new Date().getFullYear();
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body>
-    <a class="skip" href="#main">Skip to content</a>
-    <header class="bar">
-      <a class="wordmark" href="/">{site.name}</a>
-      <nav aria-label="Main">
+    <a class="skip" href="#main">Vai al contenuto</a>
+    <header class="bar" style={`background:${barTone};color:${barInk}`}>
+      <a class="wordmark display" href="/" aria-label={`${site.nickname}, home`}>{site.nickname}</a>
+      <nav aria-label="Principale">
         <ul>
-          <li><a href="/#work">Work</a></li>
-          <li><a href="/#about">About</a></li>
-          <li><a href="/#contact">Contact</a></li>
+          <li><a href="/#work">Progetti</a></li>
+          <li><a href="/#about">Chi sono</a></li>
+          <li><a href="/#contact">Contatti</a></li>
         </ul>
       </nav>
     </header>
@@ -51,14 +61,10 @@ const year = new Date().getFullYear();
       <slot />
     </main>
 
-    <footer class="foot">
-      <p>{site.name}, {site.role}</p>
-      <ul>
-        <li><a href={site.links.behance}>Behance</a></li>
-        <li><a href={site.links.instagram}>Instagram</a></li>
-        <li><a href={site.links.linkedin}>LinkedIn</a></li>
-      </ul>
-      <p class="foot-year">© {year} · {site.city}</p>
+    <footer class="foot" style={`background:${footTone}`}>
+      <p>{site.season}</p>
+      <p class="foot-mid">{site.name} · {site.role} · {site.city}</p>
+      <p class="foot-end display">{site.nickname}</p>
     </footer>
 
     <script>
@@ -82,30 +88,25 @@ const year = new Date().getFullYear();
 
 <style>
   .bar {
-    display: flex; justify-content: space-between; align-items: baseline;
-    padding: 28px var(--margin);
-    font-size: var(--step-small);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px var(--margin);
   }
-  .wordmark { font-weight: 500; text-decoration: none; font-size: var(--step-body); }
-  .bar ul { display: flex; gap: 24px; }
-  .bar a:not(.wordmark) { text-decoration: none; }
-  .bar a:hover { color: var(--accent); }
+  .wordmark { font-size: 1.75rem; text-decoration: none; line-height: 1; }
+  .bar ul { display: flex; gap: 28px; font-weight: 600; font-size: var(--step-small); }
+  .bar ul a { text-decoration: none; }
+  .bar ul a:hover { text-decoration: underline; }
 
   .foot {
     display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline; gap: 24px;
-    margin-top: 24svh;
-    padding: 0 var(--margin) 30px;
-    font-size: var(--step-small);
-    color: var(--muted);
+    padding: 28px var(--margin);
+    font-size: var(--step-small); font-weight: 600;
   }
-  .foot ul { display: flex; gap: 24px; }
-  .foot a { color: var(--ink); }
-  .foot a:hover { color: var(--accent); }
-  .foot-year { text-align: right; }
+  .foot-mid { font-weight: 400; }
+  .foot-end { text-align: right; font-size: 1.25rem; }
 
   @media (max-width: 720px) {
-    .bar ul { gap: 18px; }
-    .foot { grid-template-columns: 1fr; gap: 8px; margin-top: 16svh; padding-bottom: 24px; }
-    .foot-year { text-align: left; }
+    .bar ul { gap: 16px; }
+    .foot { grid-template-columns: 1fr auto; }
+    .foot-mid { display: none; }
   }
 </style>

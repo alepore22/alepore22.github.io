@@ -1,39 +1,41 @@
 ---
 title: WeiToYou
-year: 2023
-field: interfaces
-kind: iOS app, UI case study
-summary: "An iOS app that helps friends find each other again after splitting up, guided by a red thread."
-role: UI and UX design
+date: "03.2023"
+category: UI/UX Design
+summary: "Un’app iOS per ritrovare gli amici dopo essersi separati, seguendo un filo rosso."
+role: UI e UX design
 tools: [Figma]
 cover: ../../assets/covers/weitoyou.webp
-coverAlt: "WeiToYou cover: the app icon and several phone screens joined by a red thread."
+coverAlt: "Copertina di WeiToYou: l’icona dell’app e diverse schermate unite da un filo rosso."
+coverPosition: "80% 50%"
+color: "#f4bfcf"
+ink: "#7a1530"
 behance: https://www.behance.net/gallery/167306569/UI-Case-Study-WeiToYou
-order: 2
+order: 7
 ---
 
-WeiToYou is an iOS app for friends who lose each other after splitting up: they open a private session, share their location and follow the thread back to one another.
+WeiToYou è un’app iOS per gli amici che si perdono dopo essersi separati: aprono una sessione privata, condividono la posizione e seguono il filo per ritrovarsi.
 
-![WeiToYou logo and first screens, with a ball of wool unwinding across the page.](../../assets/work/weitoyou/01.webp)
+![Il logo di WeiToYou e le prime schermate, con un gomitolo che si srotola.](../../assets/work/weitoyou/01.webp)
 
-## Why a ball of wool
+## Perché un gomitolo
 
-The idea joins two old stories: the red thread of fate from Chinese legend, and the thread Ariadne gave Theseus to find his way out of the labyrinth. The thread runs through the whole interface, from the logo to the distance screen.
+L’idea unisce due storie antiche: il filo rosso del destino della leggenda cinese e il filo che Arianna diede a Teseo per uscire dal labirinto. Il filo attraversa tutta l’interfaccia, dal logo alla schermata della distanza.
 
-## Colour
+## Colore
 
-Two pinks, a deep red, black and two whites. Nothing else.
+Due rosa, un rosso profondo, il nero e due bianchi. Nient’altro.
 
-![Colour palette on a red thread: #FFFFFF, #F5F5F5, #F05080, #AE1F40 and #000000.](../../assets/work/weitoyou/02.webp)
+![La palette su un filo rosso: #FFFFFF, #F5F5F5, #F05080, #AE1F40 e #000000.](../../assets/work/weitoyou/02.webp)
 
-## Typography
+## Tipografia
 
-SF Pro Display in three weights: light, regular and bold.
+SF Pro Display in tre pesi: light, regular e bold.
 
-![SF Pro Display set along the thread in light, regular and bold.](../../assets/work/weitoyou/03.webp)
+![SF Pro Display lungo il filo, in light, regular e bold.](../../assets/work/weitoyou/03.webp)
 
-## From paper to pixels
+## Dalla carta ai pixel
 
-The first screens were sketched by hand on paper, then rebuilt in Figma as the final interface.
+Le prime schermate sono nate a mano su carta, poi ricostruite in Figma come interfaccia finale.
 
-![Lo-fi paper sketches of two screens next to the finished hi-fi screens.](../../assets/work/weitoyou/04.webp)
+![Schizzi lo-fi su carta accanto alle schermate hi-fi finite.](../../assets/work/weitoyou/04.webp)

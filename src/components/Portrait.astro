@@ -16,31 +16,32 @@ const { class: className, live = false } = Astro.props;
 </style>
 
 <script>
+  // Runs once for the whole visit; portraits are looked up at each move so it keeps
+  // working after a page transition swaps the document.
   const MAX = 30; // in drawing units: a few pixels on screen
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const portraits = document.querySelectorAll<HTMLElement>('[data-portrait]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-  if (!reduce && portraits.length) {
-    const look = (x: number, y: number) => {
-      portraits.forEach((p) => {
-        const r = p.getBoundingClientRect();
-        // The eyes sit at about 52% across and 46% down the drawing.
-        const dx = x - (r.left + r.width * 0.52);
-        const dy = y - (r.top + r.height * 0.46);
-        const d = Math.hypot(dx, dy) || 1;
-        const k = Math.min(1, d / 240);
-        const tx = (dx / d) * MAX * k;
-        const ty = (dy / d) * MAX * k * 0.7;
-        p.querySelectorAll<SVGElement>('.eye').forEach((e) => {
-          e.style.transform = `translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px)`;
-        });
+  const look = (x: number, y: number) => {
+    if (reduce.matches) return;
+    document.querySelectorAll<HTMLElement>('[data-portrait]').forEach((p) => {
+      const r = p.getBoundingClientRect();
+      // The eyes sit at about 52% across and 46% down the drawing.
+      const dx = x - (r.left + r.width * 0.52);
+      const dy = y - (r.top + r.height * 0.46);
+      const d = Math.hypot(dx, dy) || 1;
+      const k = Math.min(1, d / 240);
+      const tx = (dx / d) * MAX * k;
+      const ty = (dy / d) * MAX * k * 0.7;
+      p.querySelectorAll<SVGElement>('.eye').forEach((e) => {
+        e.style.transform = `translate(${tx.toFixed(1)}px, ${ty.toFixed(1)}px)`;
       });
-    };
-    let frame = 0;
-    window.addEventListener('pointermove', (ev) => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => look(ev.clientX, ev.clientY));
-    }, { passive: true });
-    window.addEventListener('pointerdown', (ev) => look(ev.clientX, ev.clientY), { passive: true });
-  }
+    });
+  };
+
+  let frame = 0;
+  window.addEventListener('pointermove', (ev) => {
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(() => look(ev.clientX, ev.clientY));
+  }, { passive: true });
+  window.addEventListener('pointerdown', (ev) => look(ev.clientX, ev.clientY), { passive: true });
 </script>

@@ -4,16 +4,23 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Portrait from '../components/Portrait.astro';
 import Arrow from '../components/Arrow.astro';
+import DemonSwarm from '../components/DemonSwarm.astro';
 import { site } from '../site';
 
 const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 const numbers = ['zero', 'un', 'due', 'tre', 'quattro', 'cinque', 'sei', 'sette', 'otto', 'nove', 'dieci', 'undici', 'dodici'];
 const count = numbers[work.length] ?? String(work.length);
 const mail = `mailto:${site.email}?subject=${encodeURIComponent('Ciao Angelo')}`;
+const filters = [
+  { id: 'tutti', label: 'Tutti' },
+  { id: 'uiux', label: 'UI/UX' },
+  { id: 'grafica', label: 'Grafica e illustrazione' },
+  { id: 'app', label: 'App con Claude Code' },
+];
+const ticker = ['UI/UX design', 'Illustrazione', 'Grafica', 'App iOS', 'Lettering', 'Napoli'];
 ---
 
 <Base barTone="var(--lav)" footTone="var(--lav)">
-  <!-- Hero: the "Hello There!" cover of the PDF, with the portrait that looks back at you. -->
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-text" data-reveal>
       <h1 id="hero-title" class="display">Hello There!</h1>
@@ -26,7 +33,7 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('Ciao Angelo')}`
       </p>
       <p class="actions">
         <a class="button" href="#work">Guarda i progetti</a>
-        <a class="text-link" href={mail}>Scrivimi</a>
+        <a class="text-link" href="#contact">Scrivimi</a>
       </p>
     </div>
     <div class="hero-portrait">
@@ -34,7 +41,19 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('Ciao Angelo')}`
     </div>
   </section>
 
-  <!-- Work: a bento of every project. -->
+  <!-- What he does, running past. -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      {[0, 1].map(() => (
+        <ul>
+          {ticker.map((t) => (
+            <li class="display">{t}<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c1 7 4 10 12 12-8 2-11 5-12 12-1-7-4-10-12-12 8-2 11-5 12-12z"/></svg></li>
+          ))}
+        </ul>
+      ))}
+    </div>
+  </div>
+
   <section id="work" class="work" aria-labelledby="work-title">
     <div class="work-head" data-reveal>
       <h2 id="work-title" class="display work-title">
@@ -43,22 +62,42 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('Ciao Angelo')}`
       <p class="hand work-note">Spoiler: nessuno è perfetto,<br />ma tutti mi hanno lasciato qualcosa.</p>
     </div>
 
-    <ul class="bento" data-reveal>
+    <div class="filters" role="group" aria-label="Filtra i progetti" data-filters>
+      {filters.map((f, i) => (
+        <button type="button" data-group={f.id} aria-pressed={i === 0 ? 'true' : 'false'}>{f.label}</button>
+      ))}
+    </div>
+
+    <ul class="bento" data-bento data-filter="tutti">
       {work.map((w, i) => (
-        <li class={`tile tile-${i + 1}`} style={`--tile:${w.data.color};--tile-ink:${w.data.ink}`}>
+        <li
+          class={`tile tile-${i + 1}`}
+          data-group={w.data.group}
+          style={`--tile:${w.data.color};--tile-ink:${w.data.ink};view-transition-name:tile-${w.id}`}
+        >
           <a href={`/work/${w.id}/`}>
-            <span class="tile-pic">
-              <Image
-                src={w.data.cover}
-                alt={w.data.coverAlt}
-                widths={[480, 800, 1200]}
-                sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 60vw"
-                style={`object-position:${w.data.coverPosition}`}
-              />
+            <span class:list={['tile-pic', { 'tile-pic--video': w.data.video }]} transition:name={`media-${w.id}`}>
+              {w.id === 'demons' ? (
+                <DemonSwarm />
+              ) : w.data.video ? (
+                <video src={w.data.video} poster={w.data.cover.src} autoplay muted loop playsinline preload="metadata" aria-label={w.data.coverAlt} />
+              ) : (
+                <Image
+                  src={w.data.cover}
+                  alt={w.data.coverAlt}
+                  widths={[480, 800, 1200, 1600]}
+                  sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 66vw"
+                  style={`object-position:${w.data.coverPosition}`}
+                />
+              )}
             </span>
             <span class="tile-foot">
               <span class="tile-title display">{w.data.title}</span>
               <span class="tile-meta">{w.data.category} · {w.data.date}</span>
+              <span class="tile-more"><span class="tile-summary">{w.data.summary}</span></span>
+            </span>
+            <span class="tile-go" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18 18 6M8 6h10v10"/></svg>
             </span>
             {w.data.note && <span class="tile-note hand">{w.data.note}</span>}
           </a>
@@ -67,7 +106,6 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('Ciao Angelo')}`
     </ul>
   </section>
 
-  <!-- About: "Io Sono Angelo", in his own words. -->
   <section id="about" class="about" aria-labelledby="about-title">
     <div class="about-pic" data-reveal>
       <div class="about-frame"><Portrait live /></div>
@@ -84,7 +122,6 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('Ciao Angelo')}`
         Sono fermamente convinto che anche i progetti più seri abbiano bisogno di leggerezza.
         Mi piace far ridere e raccontare attraverso forme e colori, senza troppe pose da “guru del design”.
       </p>
-      <p>Disegno per rendere le cose più chiare, più umane e, quando va bene, un po’ più felici.</p>
       <dl class="facts">
         <div><dt>Base</dt><dd>{site.city}</dd></div>
         <div><dt>Lavoro con</dt><dd>{site.company}</dd></div>
@@ -93,7 +130,6 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('Ciao Angelo')}`
     </div>
   </section>
 
-  <!-- Contact: "End of transmission." -->
   <section id="contact" class="contact" aria-labelledby="contact-title">
     <div class="contact-head" data-reveal>
       <h2 id="contact-title" class="display contact-title">End of transmission.</h2>
@@ -104,6 +140,7 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('Ciao Angelo')}`
         <p class="hand">Scrivimi qui</p>
         <Arrow down />
         <a href={mail}>{site.email}</a>
+        <button type="button" class="copy" data-copy={site.email}>Copia l’indirizzo</button>
       </li>
       <li>
         <p class="hand">Qui per collegarti con me</p>
@@ -119,6 +156,44 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('Ciao Angelo')}`
   </section>
 </Base>
 
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  document.addEventListener('astro:page-load', () => {
+    // Filters: show one family of projects, and let the tiles slide to their new places.
+    const bar = document.querySelector<HTMLElement>('[data-filters]');
+    const grid = document.querySelector<HTMLElement>('[data-bento]');
+    if (bar && grid) {
+      bar.addEventListener('click', (ev) => {
+        const button = (ev.target as HTMLElement).closest('button');
+        if (!button) return;
+        const group = button.dataset.group!;
+        const apply = () => {
+          bar.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+          grid.dataset.filter = group;
+          grid.querySelectorAll<HTMLElement>('.tile').forEach((t) => { t.hidden = group !== 'tutti' && t.dataset.group !== group; });
+        };
+        if (document.startViewTransition && !reduce.matches) document.startViewTransition(apply);
+        else apply();
+      });
+    }
+
+    // Copy the email address.
+    document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((b) => {
+      const label = b.textContent;
+      b.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(b.dataset.copy!);
+          b.textContent = 'Copiato!';
+        } catch {
+          b.textContent = b.dataset.copy!;
+        }
+        setTimeout(() => { b.textContent = label; }, 1800);
+      });
+    });
+  });
+</script>
+
 <style>
   .lav { color: #9566ff; }
   .smile { display: inline-block; width: 1.1em; vertical-align: -0.2em; margin-left: 4px; }
@@ -128,33 +203,56 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('Ciao Angelo')}`
     background: var(--lav);
     display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
     align-items: center; gap: clamp(24px, 4vw, 64px);
-    padding: clamp(24px, 6vh, 72px) var(--margin) clamp(64px, 10vh, 120px);
-    min-height: calc(100svh - 88px);
+    padding: clamp(16px, 4vh, 56px) var(--margin) clamp(48px, 8vh, 96px);
+    min-height: calc(100svh - 150px);
   }
   .hero h1 { font-size: var(--step-hero); line-height: 0.9; letter-spacing: -0.02em; }
   .hero-note { margin-top: 12px; text-align: right; max-width: 10.5em; margin-left: auto; margin-right: 6%; }
   .hero-text { display: flex; flex-direction: column; }
-  .lead { margin-top: clamp(32px, 5vh, 56px); max-width: 34ch; font-size: var(--step-lead); line-height: 1.4; }
-  .actions { margin-top: 32px; display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
-  .hero-portrait { max-width: 560px; justify-self: center; width: 100%; }
+  .lead { margin-top: clamp(28px, 4vh, 48px); max-width: 34ch; font-size: var(--step-lead); line-height: 1.4; }
+  .actions { margin-top: 28px; display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+  .hero-portrait { max-width: 540px; justify-self: center; width: 100%; }
+
+  /* Ticker */
+  .ticker { background: var(--ink); color: var(--cream); overflow: hidden; padding: 14px 0; }
+  .ticker-track { display: flex; width: max-content; animation: run 36s linear infinite; }
+  .ticker ul { display: flex; flex: none; }
+  .ticker li { display: flex; align-items: center; gap: 28px; padding-right: 28px; font-size: clamp(1.25rem, 1rem + 1vw, 2rem); line-height: 1; white-space: nowrap; }
+  .ticker svg { width: 0.6em; color: var(--lav); }
+  @keyframes run { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } }
 
   /* Work */
-  .work { padding: var(--gap-section) var(--margin) 0; }
+  .work { padding: var(--gap-section) var(--margin) 0; scroll-margin-top: 40px; }
   .work-head { display: grid; gap: 20px; }
   .work-title { font-size: clamp(2.25rem, 1rem + 4.2vw, 5rem); text-transform: uppercase; line-height: 0.95; text-wrap: balance; }
   .work-note { color: var(--muted); justify-self: end; text-align: right; margin-right: 4%; }
 
+  .filters { margin-top: clamp(32px, 4vw, 56px); display: flex; flex-wrap: wrap; gap: 8px; }
+  .filters button {
+    font: 600 var(--step-small)/1 var(--text); color: var(--ink);
+    padding: 12px 18px; border: 0; border-radius: 999px; cursor: pointer;
+    background: #f3e4d9;
+    transition: background-color 180ms var(--ease), color 180ms var(--ease), transform 140ms var(--ease);
+  }
+  .filters button:hover { background: #ead6c8; }
+  .filters button:active { transform: scale(0.96); }
+  .filters button[aria-pressed='true'] { background: var(--ink); color: var(--cream); }
+
   .bento {
-    margin-top: clamp(48px, 6vw, 88px);
+    margin-top: 24px;
     display: grid; grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-auto-rows: clamp(180px, 17vw, 260px);
+    grid-auto-rows: clamp(170px, 16vw, 250px);
+    grid-auto-flow: dense;
     gap: clamp(12px, 1.4vw, 20px);
   }
   .tile { grid-row: span 2; grid-column: span 4; }
+  .tile[hidden] { display: none; }
   .tile-1 { grid-column: span 8; }
-  .tile-2 { grid-column: span 4; }
-  .tile-3 { grid-column: span 5; }
-  .tile-4 { grid-column: span 7; }
+  .tile-4 { grid-column: span 8; }
+  /* With a filter on, the tiles that are left share the row evenly. */
+  .bento:not([data-filter='tutti']) .tile { grid-column: span 6; }
+  .bento[data-filter='uiux'] .tile { grid-column: span 4; }
 
   .tile a {
     position: relative; display: flex; flex-direction: column; height: 100%;
@@ -162,24 +260,41 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('Ciao Angelo')}`
     border-radius: var(--radius); padding: 10px; text-decoration: none; overflow: hidden;
     transition: transform 260ms var(--ease);
   }
-  .tile-pic { flex: 1; min-height: 0; border-radius: calc(var(--radius) - 10px); overflow: hidden; }
+  .tile-pic { flex: 1; min-height: 0; border-radius: calc(var(--radius) - 10px); overflow: hidden; display: block; }
   .tile-pic :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease); }
-  .tile-foot { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 14px 12px 6px; flex-wrap: wrap; }
+  .tile-pic--video { display: grid; place-items: center; padding: 6px 0; }
+  .tile-pic video { height: 100%; width: auto; max-width: 100%; border-radius: 22px; }
+  .tile-foot { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 0 16px; padding: 14px 56px 6px 12px; }
   .tile-title { font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2.25rem); line-height: 1; }
   .tile-meta { font-size: var(--step-small); font-weight: 600; }
+  /* The summary opens under the title when the tile is pointed at. */
+  .tile-more { grid-column: 1 / -1; display: grid; grid-template-rows: 0fr; transition: grid-template-rows 320ms var(--ease); }
+  .tile-summary { overflow: hidden; font-size: var(--step-small); line-height: 1.4; max-width: 52ch; }
+  .tile-summary::before { content: ''; display: block; height: 8px; }
+  .tile a:hover .tile-more, .tile a:focus-visible .tile-more { grid-template-rows: 1fr; }
+  .tile-go {
+    position: absolute; right: 18px; bottom: 16px; width: 40px; height: 40px; border-radius: 50%;
+    display: grid; place-items: center; background: var(--tile-ink); color: var(--tile);
+    transition: transform 260ms var(--ease);
+  }
+  .tile-go svg { width: 18px; }
+  .tile a:hover .tile-go { transform: rotate(45deg) scale(1.1); }
   .tile-note {
     position: absolute; top: 22px; right: 22px; transform: rotate(-4deg);
     background: var(--cream); color: var(--ink); padding: 6px 12px 4px; border-radius: 10px;
     font-size: 1.125rem;
   }
-  .tile a:hover { transform: translateY(-4px) rotate(-0.4deg); }
-  .tile a:hover .tile-pic :global(img) { transform: scale(1.05); }
+  .tile a:hover { transform: translateY(-4px); }
+  .tile a:hover .tile-pic :global(img) { transform: scale(1.04); }
+  @media (hover: none) {
+    .tile-more { grid-template-rows: 1fr; }
+  }
 
   /* About */
   .about {
     display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
     gap: clamp(40px, 6vw, 120px); align-items: center;
-    padding: var(--gap-section) var(--margin) 0;
+    padding: var(--gap-section) var(--margin) 0; scroll-margin-top: 40px;
   }
   .about-pic { display: flex; flex-direction: column; align-items: center; gap: 20px; }
   .about-frame { width: min(100%, 460px); aspect-ratio: 1; background: #fff; border-radius: 50%; padding: 9%; }
@@ -202,25 +317,31 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('Ciao Angelo')}`
   .contact-way { align-self: flex-end; margin-right: 12%; margin-top: 10px; }
   .contact-links {
     margin-top: clamp(64px, 9vw, 128px);
-    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; align-items: start;
   }
   .contact-links li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; }
   .contact-links :global(.arrow) { color: var(--ink); }
   .contact-links a { font-weight: 700; font-size: var(--step-lead); word-break: break-word; }
   .contact-links a:hover { color: var(--cream); }
+  .copy {
+    margin-top: 6px; font: 600 var(--step-small)/1 var(--text); color: var(--cream);
+    background: var(--ink); border: 0; border-radius: 999px; padding: 10px 16px; cursor: pointer;
+    transition: transform 140ms var(--ease);
+  }
+  .copy:hover { transform: translateY(-2px); }
+  .copy:active { transform: scale(0.96); }
   .pair { display: flex; gap: 20px; }
 
   @media (max-width: 1100px) {
     .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: clamp(200px, 30vw, 300px); }
-    .tile, .tile-1, .tile-2, .tile-3, .tile-4 { grid-column: span 1; }
-    .tile-1 { grid-column: span 2; }
+    .bento .tile, .bento:not([data-filter='tutti']) .tile { grid-column: span 1; }
+    .bento .tile-1 { grid-column: span 2; }
   }
 
   @media (max-width: 800px) {
-    .hero { grid-template-columns: 1fr; min-height: 0; padding-top: 24px; }
-    .hero-portrait { max-width: 320px; order: -1; }
+    .hero { grid-template-columns: 1fr; min-height: 0; padding-top: 16px; }
+    .hero-portrait { max-width: 300px; order: -1; }
     .hero-note { margin-right: 0; }
-    .work-head { grid-template-columns: 1fr; }
     .about { grid-template-columns: 1fr; }
     .about-frame { width: min(100%, 300px); }
     .facts { grid-template-columns: 1fr 1fr; }
@@ -229,7 +350,7 @@ const mail = `mailto:${site.email}?subject=${encodeURIComponent('Ciao Angelo')}`
 
   @media (max-width: 640px) {
     .bento { grid-template-columns: 1fr; grid-auto-rows: auto; }
-    .tile, .tile-1 { grid-column: span 1; grid-row: auto; }
+    .bento .tile, .bento .tile-1 { grid-column: span 1; grid-row: auto; }
     .tile-pic { flex: none; aspect-ratio: 4 / 3; }
   }
 </style>

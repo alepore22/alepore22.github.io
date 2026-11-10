@@ -10,10 +10,16 @@ npm run build    # output in dist/
 
 ## Adding a project
 
-1. Put the cover in `src/assets/covers/` (JPG, PNG, WebP or SVG; Astro optimises it).
+1. Put the cover in `src/assets/covers/` and the other pictures in `src/assets/work/<project>/` (Astro optimises them).
 2. Copy one of the files in `src/content/work/` and edit its front matter:
-   `title`, `year`, `field` (`interfaces` or `illustration`), `kind`, `summary`, `cover`, `coverAlt`, `order`.
-3. Write the case study below the front matter in Markdown. Images go in the same assets folder.
+   `title`, `date`, `category`, `group` (`uiux`, `grafica` or `app`: the filter on the home page), `summary`,
+   `cover`, `coverAlt`, `color` and `ink` (the tile colours), `order`.
+   Optional: `video` (a looping clip under `public/media/`, shown instead of the cover), `note` (the handwritten label), `behance`.
+3. Write the case study below the front matter in Markdown. Text is real text; pictures are only pictures.
+   - Pictures on consecutive lines become a row (2, 3 or 4 across).
+   - `<div class="split">` … `</div>` puts words beside a picture; `split flip` swaps the sides, `split narrow` is for a phone screen.
+     Leave a blank line after the opening tag and before the closing one.
+   - `<div class="detti">` and `<ul class="swatches">` are used in Accìrete and Demons: copy them from there.
 
 Name, email, city and social links live in `src/site.ts`.
 The previous hand-written site lives in the git history of `main`.

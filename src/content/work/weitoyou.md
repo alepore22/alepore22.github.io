@@ -2,6 +2,7 @@
 title: WeiToYou
 date: "03.2023"
 category: UI/UX Design
+group: uiux
 summary: "Un’app iOS per ritrovare gli amici dopo essersi separati, seguendo un filo rosso."
 role: UI e UX design
 tools: [Figma]

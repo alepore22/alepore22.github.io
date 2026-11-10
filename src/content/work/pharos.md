@@ -2,6 +2,7 @@
 title: Pharos
 date: "12.2024"
 category: UI/UX Design
+group: uiux
 summary: "Un’app per macOS dove gli studenti condividono le loro storie, trovano colleghi e aprono porte per la loro carriera."
 role: UX e UI design
 with: Serena Tizzano

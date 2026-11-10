@@ -1,0 +1,51 @@
+---
+// The demons of DEMONS, floating like they do in the app. They are scared of you:
+// point at the swarm and they back away. Drawn from Design/lilDem.svg.
+const demons = [
+  { x: 6, y: 10, w: 30, eye: '#fff6ef', dur: 7.5, delay: 0, fx: -18, fy: -14, flip: false },
+  { x: 58, y: 4, w: 24, eye: '#ffd60a', dur: 6.2, delay: -2, fx: 20, fy: -16, flip: true },
+  { x: 30, y: 34, w: 42, eye: '#fff6ef', dur: 9, delay: -4, fx: 0, fy: 14, flip: false },
+  { x: 70, y: 46, w: 26, eye: '#ff3b21', dur: 6.8, delay: -1, fx: 22, fy: 10, flip: false },
+  { x: 2, y: 62, w: 22, eye: '#ff8a1e', dur: 5.8, delay: -3, fx: -20, fy: 12, flip: true },
+];
+---
+
+<div class="swarm" aria-hidden="true">
+  <svg class="defs" width="0" height="0">
+    <defs>
+      <radialGradient id="dem-body" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(752 -125.083) rotate(126.991) scale(852.602 966.193)">
+        <stop stop-color="#fff" /><stop offset="0.12" stop-color="#bababa" /><stop offset="0.23" stop-color="#8f8f8f" />
+        <stop offset="0.4" stop-color="#656565" /><stop offset="0.55" stop-color="#464646" /><stop offset="1" stop-color="#020202" />
+      </radialGradient>
+      <symbol id="lil-dem" viewBox="0 0 795 723">
+        <path fill="url(#dem-body)" d="M176.573 20.9168C176.579 20.9894 185.062 124.154 229.572 163.417C239.542 172.211 252.148 177.358 264.647 180.297C308.995 166.546 357.989 158.917 409.5 158.917C609.151 158.917 771 273.532 771 414.917C771 556.302 609.151 670.917 409.5 670.917C209.849 670.917 48 556.302 48 414.917C48 360.655 71.839 310.336 112.505 268.927C76.5554 208.195 77.4113 97.503 176.573 20.9168Z" />
+        <ellipse cx="300.5" cy="385.917" rx="58" ry="88" transform="rotate(12 300.5 385.917)" style="fill:var(--eye)" />
+        <ellipse cx="520.5" cy="385.917" rx="58" ry="88" transform="rotate(-12 520.5 385.917)" style="fill:var(--eye)" />
+      </symbol>
+    </defs>
+  </svg>
+  {demons.map((d) => (
+    <span
+      class="demon"
+      style={`left:${d.x}%;top:${d.y}%;width:${d.w}%;--eye:${d.eye};--dur:${d.dur}s;--delay:${d.delay}s;--fx:${d.fx}%;--fy:${d.fy}%`}
+    >
+      <svg viewBox="0 0 795 723" style={d.flip ? 'transform:scaleX(-1)' : undefined}><use href="#lil-dem" /></svg>
+    </span>
+  ))}
+</div>
+
+<style>
+  .swarm { position: relative; width: 100%; height: 100%; min-height: 220px; overflow: hidden; }
+  .defs { position: absolute; }
+  .demon { position: absolute; transition: translate 500ms var(--ease); }
+  .demon svg { display: block; width: 100%; height: auto; animation: drift var(--dur) ease-in-out var(--delay) infinite alternate; }
+  @keyframes drift {
+    from { translate: -6% -8%; rotate: -4deg; }
+    to { translate: 7% 9%; rotate: 5deg; }
+  }
+  /* They back away from the pointer. */
+  :global(a:hover) .demon, .swarm:hover .demon { translate: var(--fx) var(--fy); }
+  @media (prefers-reduced-motion: reduce) {
+    .demon svg { animation: none; }
+  }
+</style>

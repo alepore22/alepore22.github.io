@@ -139,7 +139,7 @@ const ticker = ['UI/UX design', 'Illustrazione', 'Grafica', 'App iOS', 'Napoli']
       <li>
         <p class="hand">Scrivimi qui</p>
         <Arrow down />
-        <a href={mail}>{site.email}</a>
+        <a href={mail}>{site.email.split('@')[0]}@<wbr />{site.email.split('@')[1]}</a>
         <button type="button" class="copy" data-copy={site.email}>Copia l’indirizzo</button>
       </li>
       <li>
@@ -321,7 +321,8 @@ const ticker = ['UI/UX design', 'Illustrazione', 'Grafica', 'App iOS', 'Napoli']
   }
   .contact-links li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; }
   .contact-links :global(.arrow) { color: var(--ink); }
-  .contact-links a { font-weight: 700; font-size: var(--step-lead); word-break: break-word; }
+  /* Long addresses wrap after the @, never in the middle of a word. */
+  .contact-links a { font-weight: 700; font-size: var(--step-lead); overflow-wrap: break-word; }
   .contact-links a:hover { color: var(--cream); }
   .copy {
     margin-top: 6px; font: 600 var(--step-small)/1 var(--text); color: var(--cream);

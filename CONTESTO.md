@@ -80,6 +80,12 @@ npm run build
 
 Le voci più recenti stanno in cima.
 
+### 10 novembre 2026 — Email che va a capo nei contatti
+- Quando la colonna è stretta, l'email andava a capo a metà parola ("outlook.c / om").
+- Ora può andare a capo solo dopo la @ ("lepore.angelo@ / outlook.com"); su una riga sola quando c'è spazio. Verificato a 1440, 1100, 900, 800, 600, 375 e 320 px.
+- Il link `mailto:` e il pulsante "Copia l'indirizzo" usano sempre l'indirizzo intero.
+- Salvato in un commit, inviato su `redesign` e pubblicato su `main`.
+
 ### 10 novembre 2026 — Via Instagram dai contatti
 - Tolto il link a Instagram nella sezione Contatti: sotto "Qui altre cose molto carine" resta solo Behance.
 - Il link resta scritto in `src/site.ts` (`links.instagram`), ma il sito non lo usa più da nessuna parte.

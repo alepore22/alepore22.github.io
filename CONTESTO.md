@@ -22,9 +22,10 @@ Sito statico in Astro, pensato per GitHub Pages su `alepore22.github.io`.
 
 ## Stato attuale
 
-- **Ramo:** `redesign`, su GitHub (`alepore22/alepore22.github.io`). `main` contiene ancora il vecchio sito, che è quello online.
-- **Non ancora pubblicato.** Per pubblicare: pull request da `redesign` a `main`, sorgente di Pages su "GitHub Actions" (Settings → Pages), poi merge.
-- **Modifiche non ancora in un commit:** nessuna. Il ramo locale e quello su GitHub coincidono.
+- **Online** su https://alepore22.github.io con il redesign (dal 10 novembre 2026).
+- **Rami:** si lavora su `redesign` (GitHub: `alepore22/alepore22.github.io`); per pubblicare si porta `redesign` su `main`. Oggi `main` è al commit `c272e24`: `redesign` ha in più solo l'aggiornamento di questo file, che non cambia il sito.
+- **Pubblicazione:** la sorgente di Pages è "GitHub Actions". Ogni push su `main` ricostruisce e pubblica il sito con `.github/workflows/deploy.yml`, in circa due minuti.
+- **Modifiche non ancora in un commit:** nessuna. Il ramo `redesign` locale e quello su GitHub coincidono.
 
 ## Com'è fatto
 
@@ -78,6 +79,12 @@ npm run build
 ## Storico
 
 Le voci più recenti stanno in cima.
+
+### 10 novembre 2026 — Il redesign va online
+- Sorgente di GitHub Pages passata da "ramo main" a "GitHub Actions".
+- `main` portato al commit `c272e24` di `redesign` (senza merge, la storia era lineare) e inviato su GitHub.
+- Pubblicazione automatica riuscita: https://alepore22.github.io mostra il nuovo sito, pagine progetto e video di TACA compresi.
+- Questa voce è salvata in un commit e inviata su GitHub (ramo `redesign`).
 
 ### 10 novembre 2026 — Striscia e file di contesto
 - Tolto "Lettering" dalla striscia che scorre sotto l'hero. Restano: UI/UX design, Illustrazione, Grafica, App iOS, Napoli.

@@ -23,9 +23,9 @@ Sito statico in Astro, pensato per GitHub Pages su `alepore22.github.io`.
 ## Stato attuale
 
 - **Online** su https://alepore22.github.io con il redesign (dal 10 novembre 2026).
-- **Rami:** si lavora su `redesign` (GitHub: `alepore22/alepore22.github.io`); per pubblicare si porta `redesign` su `main`. Oggi `main` è al commit `c272e24`: `redesign` ha in più solo l'aggiornamento di questo file, che non cambia il sito.
+- **Rami:** si lavora su `redesign` (GitHub: `alepore22/alepore22.github.io`); per pubblicare si porta `redesign` su `main`. Oggi `main` e `redesign` coincidono.
 - **Pubblicazione:** la sorgente di Pages è "GitHub Actions". Ogni push su `main` ricostruisce e pubblica il sito con `.github/workflows/deploy.yml`, in circa due minuti.
-- **Modifiche non ancora in un commit:** nessuna. Il ramo `redesign` locale e quello su GitHub coincidono.
+- **Modifiche non ancora in un commit:** nessuna.
 
 ## Com'è fatto
 
@@ -79,6 +79,11 @@ npm run build
 ## Storico
 
 Le voci più recenti stanno in cima.
+
+### 10 novembre 2026 — Via Instagram dai contatti
+- Tolto il link a Instagram nella sezione Contatti: sotto "Qui altre cose molto carine" resta solo Behance.
+- Il link resta scritto in `src/site.ts` (`links.instagram`), ma il sito non lo usa più da nessuna parte.
+- Salvato in un commit, inviato su `redesign` e pubblicato su `main`.
 
 ### 10 novembre 2026 — Il redesign va online
 - Sorgente di GitHub Pages passata da "ramo main" a "GitHub Actions".

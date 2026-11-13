@@ -80,6 +80,13 @@ npm run build
 
 Le voci più recenti stanno in cima.
 
+### 13 novembre 2026 — Striscia sotto l'hero senza vuoti
+- Problema: un giro di parole è largo circa 1050 px e la striscia ne conteneva solo due. Su schermi più larghi di così, prima di ripartire restava un vuoto a destra e poi il testo compariva di colpo. Su telefono non succedeva.
+- Ora ogni metà della striscia ripete le parole 4 volte (circa 4200 px), più larga di qualunque schermo: il giro riparte senza vuoti né salti. Verificato a 390, 1024, 1440, 1920, 2560 e 3440 px.
+- La durata è passata da 36 a 144 secondi, quindi la velocità resta la stessa di prima.
+- Se aggiungi o togli parole dalla striscia non serve cambiare altro; se le parole diventano molto meno, aumenta `tickerRepeats` in `src/pages/index.astro` (e la durata in proporzione).
+- Salvato in un commit, inviato su `redesign` e pubblicato su `main`.
+
 ### 10 novembre 2026 — Email che va a capo nei contatti
 - Quando la colonna è stretta, l'email andava a capo a metà parola ("outlook.c / om").
 - Ora può andare a capo solo dopo la @ ("lepore.angelo@ / outlook.com"); su una riga sola quando c'è spazio. Verificato a 1440, 1100, 900, 800, 600, 375 e 320 px.

@@ -18,6 +18,10 @@ const filters = [
   { id: 'app', label: 'App con Claude Code' },
 ];
 const ticker = ['UI/UX design', 'Illustrazione', 'Grafica', 'App iOS', 'Napoli'];
+// Each half of the strip repeats the words until it is wider than any screen (one pass is about 1050px),
+// so the loop never shows an empty gap.
+const tickerRepeats = 4;
+const tickerHalf = Array.from({ length: tickerRepeats }, () => ticker).flat();
 ---
 
 <Base barTone="var(--lav)" footTone="var(--lav)">
@@ -46,7 +50,7 @@ const ticker = ['UI/UX design', 'Illustrazione', 'Grafica', 'App iOS', 'Napoli']
     <div class="ticker-track">
       {[0, 1].map(() => (
         <ul>
-          {ticker.map((t) => (
+          {tickerHalf.map((t) => (
             <li class="display">{t}<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c1 7 4 10 12 12-8 2-11 5-12 12-1-7-4-10-12-12 8-2 11-5 12-12z"/></svg></li>
           ))}
         </ul>
@@ -215,7 +219,8 @@ const ticker = ['UI/UX design', 'Illustrazione', 'Grafica', 'App iOS', 'Napoli']
 
   /* Ticker */
   .ticker { background: var(--ink); color: var(--cream); overflow: hidden; padding: 14px 0; }
-  .ticker-track { display: flex; width: max-content; animation: run 36s linear infinite; }
+  /* 36s for each pass of the words, times the repeats: same speed as before. */
+  .ticker-track { display: flex; width: max-content; animation: run 144s linear infinite; will-change: transform; }
   .ticker ul { display: flex; flex: none; }
   .ticker li { display: flex; align-items: center; gap: 28px; padding-right: 28px; font-size: clamp(1.25rem, 1rem + 1vw, 2rem); line-height: 1; white-space: nowrap; }
   .ticker svg { width: 0.6em; color: var(--lav); }

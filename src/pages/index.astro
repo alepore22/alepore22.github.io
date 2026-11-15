@@ -6,6 +6,7 @@ import Portrait from '../components/Portrait.astro';
 import Arrow from '../components/Arrow.astro';
 import DemonSwarm from '../components/DemonSwarm.astro';
 import { site } from '../site';
+import { person, website } from '../schema';
 
 const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 const numbers = ['zero', 'un', 'due', 'tre', 'quattro', 'cinque', 'sei', 'sette', 'otto', 'nove', 'dieci', 'undici', 'dodici'];
@@ -24,17 +25,23 @@ const tickerRepeats = 4;
 const tickerHalf = Array.from({ length: tickerRepeats }, () => ticker).flat();
 ---
 
-<Base barTone="var(--lav)" footTone="var(--lav)">
+<Base
+  barTone="var(--lav)"
+  footTone="var(--lav)"
+  description={`${site.name}, ${site.role} a ${site.city}. App iOS e macOS, grafica e illustrazione: ${count} progetti raccontati dall’idea al risultato.`}
+  schema={{ '@context': 'https://schema.org', '@graph': [person, website] }}
+>
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-text" data-reveal>
-      <h1 id="hero-title" class="display">Hello There!</h1>
+      <p class="display hero-hello">Hello There!</p>
       <p class="hand hero-note">This is where fun begins
         <svg class="smile" viewBox="0 0 32 32" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="16" cy="16" r="13"/><path d="M10 18c3 4 9 4 12 0M11.5 12.5h.1M20.5 12.5h.1"/></svg>
       </p>
-      <p class="lead">
-        Sono <strong>Angelo Lepore</strong>, {site.role} a {site.city}.
-        Disegno per rendere le cose più chiare, più umane e, quando va bene, un po’ più felici.
-      </p>
+      <!-- The page title for search engines is who and where; "Hello There!" stays the big visual greeting. -->
+      <div class="lead">
+        <h1 id="hero-title">Sono <strong>Angelo Lepore</strong>, {site.role} a {site.city}.</h1>{' '}
+        <p>Disegno per rendere le cose più chiare, più umane e, quando va bene, un po’ più felici.</p>
+      </div>
       <p class="actions">
         <a class="button" href="#work">Guarda i progetti</a>
         <a class="text-link" href="#contact">Scrivimi</a>
@@ -84,7 +91,7 @@ const tickerHalf = Array.from({ length: tickerRepeats }, () => ticker).flat();
               {w.id === 'demons' ? (
                 <DemonSwarm />
               ) : w.data.video ? (
-                <video src={w.data.video} poster={w.data.cover.src} autoplay muted loop playsinline preload="metadata" aria-label={w.data.coverAlt} />
+                <video data-src={w.data.video} poster={w.data.cover.src} muted loop playsinline preload="none" aria-label={w.data.coverAlt} />
               ) : (
                 <Image
                   src={w.data.cover}
@@ -164,6 +171,21 @@ const tickerHalf = Array.from({ length: tickerRepeats }, () => ticker).flat();
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   document.addEventListener('astro:page-load', () => {
+    // Clips load and play only while they are on screen, so the home page stays light.
+    const clips = document.querySelectorAll<HTMLVideoElement>('video[data-src]');
+    if (clips.length) {
+      const seen = new IntersectionObserver((entries) => entries.forEach((e) => {
+        const v = e.target as HTMLVideoElement;
+        if (e.isIntersecting) {
+          if (!v.src) v.src = v.dataset.src!;
+          if (!reduce.matches) v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      }), { rootMargin: '200px 0px' });
+      clips.forEach((v) => seen.observe(v));
+    }
+
     // Filters: show one family of projects, and let the tiles slide to their new places.
     const bar = document.querySelector<HTMLElement>('[data-filters]');
     const grid = document.querySelector<HTMLElement>('[data-bento]');
@@ -210,10 +232,11 @@ const tickerHalf = Array.from({ length: tickerRepeats }, () => ticker).flat();
     padding: clamp(16px, 4vh, 56px) var(--margin) clamp(48px, 8vh, 96px);
     min-height: calc(100svh - 150px);
   }
-  .hero h1 { font-size: var(--step-hero); line-height: 0.9; letter-spacing: -0.02em; }
+  .hero-hello { font-size: var(--step-hero); line-height: 0.9; letter-spacing: -0.02em; }
   .hero-note { margin-top: 12px; text-align: right; max-width: 10.5em; margin-left: auto; margin-right: 6%; }
   .hero-text { display: flex; flex-direction: column; }
   .lead { margin-top: clamp(28px, 4vh, 48px); max-width: 34ch; font-size: var(--step-lead); line-height: 1.4; }
+  .lead h1, .lead p { display: inline; font: inherit; }
   .actions { margin-top: 28px; display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
   .hero-portrait { max-width: 540px; justify-self: center; width: 100%; }
 

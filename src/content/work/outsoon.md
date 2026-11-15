@@ -2,6 +2,7 @@
 title: Outsoon
 date: "11.2024"
 category: UI/UX Design
+headline: "app iOS per i film in uscita"
 group: uiux
 summary: "Un’app per rimanere aggiornato sugli ultimi film. Ma soprattutto per non dimenticare di andarli a vedere."
 role: UI/UX design

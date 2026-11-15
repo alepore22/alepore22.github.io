@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://angelolepore.it/sitemap-index.xml

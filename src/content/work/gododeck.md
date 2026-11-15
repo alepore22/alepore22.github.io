@@ -1,7 +1,8 @@
 ---
 title: Gododeck
 date: "02.2025"
-category: Illustration
+category: Illustrazione
+headline: "mazzo di carte illustrato"
 group: grafica
 summary: "Un mazzo di carte francesi personalizzato, nato per gioco, che racconta l’amicizia attraverso simpatiche illustrazioni."
 role: Illustrazione e packaging

@@ -2,6 +2,7 @@
 title: TACA
 date: "11.2026"
 category: App iOS
+headline: "timer Pomodoro napoletano per iOS"
 group: app
 summary: "Timer A Cosc Aperte: un Pomodoro ispirato alla limonata a cosce aperte di Napoli. Il bicchiere si riempie mentre lavori, e alla fine esplode."
 role: Idea, design e sviluppo

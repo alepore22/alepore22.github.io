@@ -1,6 +1,8 @@
-@import '@fontsource/bagel-fat-one';
-@import '@fontsource/gaegu/700.css';
-@import '@fontsource-variable/inter';
+/* Only the Latin subsets: the site is in Italian, and the Korean subsets of Gaegu and
+   Bagel Fat One alone added about 180 font rules to the CSS. */
+@import '@fontsource/bagel-fat-one/latin-400.css';
+@import '@fontsource/gaegu/latin-700.css';
+@import '@fontsource-variable/inter/wght.css';
 
 /* Palette and type taken from "Angelo Lepore — Portfolio 24/25". */
 :root {

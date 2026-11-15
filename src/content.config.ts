@@ -10,6 +10,8 @@ const work = defineCollection({
       // Shown as "11.2024".
       date: z.string(),
       category: z.string(),
+      // What the project is, in a few words, for the browser tab and search results: "timer Pomodoro per iOS".
+      headline: z.string(),
       // Which filter on the home page shows this project.
       group: z.enum(['uiux', 'grafica', 'app']),
       summary: z.string(),

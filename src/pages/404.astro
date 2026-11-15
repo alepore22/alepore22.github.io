@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base title="Pagina non trovata · Angelo Lepore" description="Questa pagina non esiste. Ma i progetti sì." barTone="var(--lav)" footTone="var(--lav)">
+  <section class="lost" aria-labelledby="lost-title">
+    <p class="display code">404</p>
+    <h1 id="lost-title" class="display">These aren’t the pages you’re looking for.</h1>
+    <p class="hand note">Questa pagina non esiste (o non esiste più)</p>
+    <p class="lead">Nessun problema: torna alla <a href="/">home</a>, oppure scegli un progetto.</p>
+    <ul class="list">
+      {work.map((w) => (
+        <li style={`--tile:${w.data.color};--tile-ink:${w.data.ink}`}>
+          <a href={`/work/${w.id}/`}><span class="name">{w.data.title}</span> <span class="what">{w.data.headline}</span></a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .lost {
+    background: var(--lav); min-height: calc(100svh - 150px);
+    padding: clamp(24px, 6vh, 80px) var(--margin) clamp(64px, 10vh, 120px);
+  }
+  .code { font-size: var(--step-hero); line-height: 0.9; }
+  h1 { margin-top: 16px; max-width: 16ch; font-size: clamp(2rem, 1.2rem + 3vw, 4rem); line-height: 1; text-wrap: balance; }
+  .note { margin-top: 16px; }
+  .lead { margin-top: 32px; max-width: 40ch; font-size: var(--step-lead); line-height: 1.4; }
+  .lead a { font-weight: 700; }
+  .list { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .list a {
+    display: inline-flex; gap: 8px; align-items: baseline; padding: 12px 20px; border-radius: 999px;
+    background: var(--tile); color: var(--tile-ink); text-decoration: none; font-weight: 700;
+    transition: transform 140ms var(--ease);
+  }
+  .list a:hover { transform: translateY(-2px); }
+  .what { font-weight: 400; opacity: 0.85; }
+</style>

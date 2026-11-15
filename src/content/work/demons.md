@@ -2,6 +2,7 @@
 title: Demons
 date: "11.2026"
 category: App iOS
+headline: "journal vocale per iOS"
 group: app
 summary: "Un journal vocale che ha paura di te: ogni nota vocale diventa un piccolo demone che fluttua sullo schermo."
 role: Idea, design e sviluppo

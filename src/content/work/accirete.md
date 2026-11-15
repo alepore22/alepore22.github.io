@@ -1,7 +1,8 @@
 ---
 title: Accìrete
 date: "07.2024"
-category: Graphic Design
+category: Grafica
+headline: "detti napoletani in grafica"
 group: grafica
 summary: "Non è un consiglio, è un’esortazione. Detti napoletani reinterpretati in chiave contemporanea."
 role: Grafica e lettering

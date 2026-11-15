@@ -1,6 +1,6 @@
 # Angelo Lepore — portfolio
 
-Astro static site. Deploys to GitHub Pages (`alepore22.github.io`) on every push to `main`.
+Astro static site. Deploys to GitHub Pages on every push to `main`, served at https://angelolepore.it.
 
 ```bash
 npm install
@@ -12,7 +12,7 @@ npm run build    # output in dist/
 
 1. Put the cover in `src/assets/covers/` and the other pictures in `src/assets/work/<project>/` (Astro optimises them).
 2. Copy one of the files in `src/content/work/` and edit its front matter:
-   `title`, `date`, `category`, `group` (`uiux`, `grafica` or `app`: the filter on the home page), `summary`,
+   `title`, `date`, `category`, `headline` (what it is in a few words, for the browser tab and Google: "timer Pomodoro per iOS"), `group` (`uiux`, `grafica` or `app`: the filter on the home page), `summary`,
    `cover`, `coverAlt`, `color` and `ink` (the tile colours), `order`.
    Optional: `video` (a looping clip under `public/media/`, shown instead of the cover), `note` (the handwritten label), `behance`.
 3. Write the case study below the front matter in Markdown. Text is real text; pictures are only pictures.
@@ -21,7 +21,8 @@ npm run build    # output in dist/
      Leave a blank line after the opening tag and before the closing one.
    - `<div class="detti">` and `<ul class="swatches">` are used in Accìrete and Demons: copy them from there.
 
-Name, email, city and social links live in `src/site.ts`.
+Name, email, city and social links live in `src/site.ts`; the structured data for search engines is built from them in `src/schema.ts`.
+The sitemap is generated at build time; `public/robots.txt` points to it.
 The previous hand-written site lives in the git history of `main`.
 
 ## Publishing

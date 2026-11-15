@@ -3,12 +3,12 @@
 Questo file riassume cos'è il sito, le regole da rispettare e lo storico delle modifiche.
 Va aggiornato dopo ogni richiesta: una nuova voce in cima allo **Storico**, e le altre sezioni se cambiano.
 
-Ultimo aggiornamento: 10 novembre 2026
+Ultimo aggiornamento: 15 novembre 2026
 
 ## Cos'è
 
 Il portfolio di Angelo Lepore ("Angolo"), UI/UX designer e illustratore di Napoli.
-Sito statico in Astro, pensato per GitHub Pages su `alepore22.github.io`.
+Sito statico in Astro su GitHub Pages, con dominio **angelolepore.it** (`alepore22.github.io` rimanda lì).
 
 ## Regole date da Angelo
 
@@ -22,7 +22,7 @@ Sito statico in Astro, pensato per GitHub Pages su `alepore22.github.io`.
 
 ## Stato attuale
 
-- **Online** su https://alepore22.github.io con il redesign (dal 10 novembre 2026).
+- **Online** su https://angelolepore.it con il redesign (dal 10 novembre 2026).
 - **Rami:** si lavora su `redesign` (GitHub: `alepore22/alepore22.github.io`); per pubblicare si porta `redesign` su `main`. Oggi `main` e `redesign` coincidono.
 - **Pubblicazione:** la sorgente di Pages è "GitHub Actions". Ogni push su `main` ricostruisce e pubblica il sito con `.github/workflows/deploy.yml`, in circa due minuti.
 - **Modifiche non ancora in un commit:** nessuna.
@@ -32,6 +32,10 @@ Sito statico in Astro, pensato per GitHub Pages su `alepore22.github.io`.
 | Cosa | Dove |
 |---|---|
 | Nome, email, città, link social | `src/site.ts` |
+| Dati strutturati per Google (Person, WebSite) | `src/schema.ts` |
+| Dominio, sitemap, font non incorporati | `astro.config.mjs` |
+| Pagina 404 | `src/pages/404.astro` |
+| Istruzioni per i motori di ricerca | `public/robots.txt` |
 | Colori, font, pulsanti, animazioni di ingresso | `src/styles/global.css` |
 | Barra in alto, footer, transizioni tra pagine | `src/layouts/Base.astro` |
 | Home (hero, striscia, bento, chi sono, contatti) | `src/pages/index.astro` |
@@ -75,10 +79,25 @@ npm run build
 - Demons: l'immagine delle varianti è a bassa risoluzione.
 - Su telefono il titolo "Ecco sette progetti…" va su quattro righe.
 - Cartelle locali fuori da git che si possono eliminare: `_old/` e `Asset/`.
+- SEO, cose che può fare solo Angelo: registrare `angelolepore.it` in Google Search Console (verifica DNS), inviare `https://angelolepore.it/sitemap-index.xml` e chiedere l'indicizzazione; mettere il link al sito su LinkedIn, Behance e App Store.
+- SEO, contenuti da scrivere con Angelo: case study più lunghi (400–600 parole: vincoli, alternative scartate, risultati come download o esiti dei test); in Chi sono una frase di presentazione, formazione e collaborazioni.
 
 ## Storico
 
 Le voci più recenti stanno in cima.
+
+### 15 novembre 2026 — Miglioramenti SEO (dall'audit in `~/Desktop/angelolepore.it-audit`)
+- Dominio: `site` ora è `https://angelolepore.it`. Canonical, `og:url` e `og:image` non puntano più a `alepore22.github.io`.
+- Sitemap generata a ogni build (`@astrojs/sitemap`, esclude la 404) e `public/robots.txt` che la indica.
+- Dati strutturati: Person + WebSite in home (`src/schema.ts`); CreativeWork + BreadcrumbList su ogni progetto.
+- Home: l'H1 ora è "Sono Angelo Lepore, UI/UX designer e illustratore a Napoli." (stesso aspetto di prima); "Hello There!" resta il saluto grande ma non è più il titolo. Meta description da 146 caratteri.
+- Progetti: nuovo campo obbligatorio `headline` e title come "TACA, timer Pomodoro napoletano per iOS · Angelo Lepore". Categorie in italiano ("Illustrazione", "Grafica"). Ogni progetto ha la sua immagine di anteprima (copertina 1200×630).
+- Velocità: i font non sono più incorporati nel CSS e si caricano solo i sottoinsiemi latini (CSS da 120 KB a meno di 5 KB compressi). Video di TACA ricompresso da 1,25 MB a 490 KB, e in home parte solo quando è sullo schermo.
+- Autoritratto: provato a disegnarlo una volta sola e riusarlo con `<use>`, ma il disegno risultava spostato e tagliato in alto e a sinistra. Annullato su richiesta di Angelo: `src/components/Portrait.astro` è tornato com'era, quindi il disegno resta ripetuto due volte in home e la descrizione resta in inglese.
+- Nuova pagina 404 nel tono del sito, con i link ai progetti.
+- Verificato in anteprima: build, JSON-LD valido, nessuno scroll orizzontale a 390 px, ritratti di nuovo interi dopo l'annullamento, video che parte allo scorrimento.
+- Non fatto (da audit): `llms.txt` (facoltativo), testi più lunghi e Search Console (vedi Cose in sospeso).
+- Salvato in un commit, inviato su `redesign` e pubblicato su `main`.
 
 ### 13 novembre 2026 — Striscia sotto l'hero senza vuoti
 - Problema: un giro di parole è largo circa 1050 px e la striscia ne conteneva solo due. Su schermi più larghi di così, prima di ripartire restava un vuoto a destra e poi il testo compariva di colpo. Su telefono non succedeva.

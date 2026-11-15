@@ -14,6 +14,11 @@ interface Props {
   footInk?: string;
   /** Which navigation link is the current one on pages without sections to follow. */
   current?: 'work' | 'about' | 'contact';
+  /** Social preview image, a path on this site. Defaults to /og.png. */
+  image?: string;
+  /** Structured data for search engines (schema.org JSON-LD). */
+  schema?: Record<string, unknown>;
+  ogType?: 'website' | 'article';
 }
 
 const {
@@ -24,9 +29,12 @@ const {
   footTone = 'var(--cream)',
   footInk = 'var(--ink)',
   current,
+  image = '/og.png',
+  schema,
+  ogType = 'website',
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL('/og.png', Astro.site);
+const ogImage = new URL(image, Astro.site);
 const year = new Date().getFullYear();
 const nav = [
   { id: 'work', label: 'Progetti' },
@@ -46,13 +54,17 @@ const nav = [
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#aa80ff" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.name} />
     <meta property="og:locale" content="it_IT" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={title} />
     <meta name="twitter:card" content="summary_large_image" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
     <ClientRouter />
     <script is:inline>
       document.documentElement.classList.add('js');

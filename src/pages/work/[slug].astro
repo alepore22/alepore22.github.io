@@ -1,8 +1,10 @@
 ---
 import { getCollection, render } from 'astro:content';
-import { Image } from 'astro:assets';
+import { Image, getImage } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 import DemonSwarm from '../../components/DemonSwarm.astro';
+import { site } from '../../site';
+import { origin, person, personId } from '../../schema';
 
 export async function getStaticPaths() {
   const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
@@ -16,11 +18,46 @@ const { entry, next } = Astro.props;
 const { Content } = await render(entry);
 const d = entry.data;
 const n = next.data;
+
+// Social preview: the cover cropped to the 1200×630 shape that link previews use.
+const og = await getImage({ src: d.cover, width: 1200, height: 630, fit: 'cover', format: 'jpeg', quality: 80 });
+const url = `${origin}/work/${entry.id}/`;
+const [month, year] = d.date.split('.');
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CreativeWork',
+      '@id': `${url}#work`,
+      name: d.title,
+      headline: `${d.title}, ${d.headline}`,
+      description: d.summary,
+      genre: d.category,
+      url,
+      image: new URL(og.src, origin).href,
+      dateCreated: year && month ? `${year}-${month}` : undefined,
+      inLanguage: 'it-IT',
+      creator: { '@id': personId },
+      ...(d.behance ? { sameAs: [d.behance] } : {}),
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: site.name, item: `${origin}/` },
+        { '@type': 'ListItem', position: 2, name: d.title, item: url },
+      ],
+    },
+    person,
+  ],
+};
 ---
 
 <Base
-  title={`${d.title} · ${d.category}, Angelo Lepore`}
+  title={`${d.title}, ${d.headline} · ${site.name}`}
   description={d.summary}
+  image={og.src}
+  ogType="article"
+  schema={schema}
   barTone={d.color}
   barInk={d.ink}
   footTone={n.color}

@@ -5,6 +5,7 @@ category: Grafica
 headline: "detti napoletani in grafica"
 group: grafica
 summary: "Non è un consiglio, è un’esortazione. Detti napoletani reinterpretati in chiave contemporanea."
+description: "Accìrete: detti napoletani reinterpretati in chiave contemporanea su manifesti, tote bag e sfondi per smartphone, ognuno con la sua traduzione."
 role: Grafica e lettering
 cover: ../../assets/covers/accirete.webp
 coverAlt: "La scritta Accìrete! in lettering retrò rosso e arancio su crema."

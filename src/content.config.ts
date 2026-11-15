@@ -15,6 +15,8 @@ const work = defineCollection({
       // Which filter on the home page shows this project.
       group: z.enum(['uiux', 'grafica', 'app']),
       summary: z.string(),
+      // Longer text for search results, when the summary is too short. Falls back to the summary.
+      description: z.string().optional(),
       role: z.string().optional(),
       with: z.string().optional(),
       tools: z.array(z.string()).default([]),

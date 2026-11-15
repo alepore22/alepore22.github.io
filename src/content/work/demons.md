@@ -41,25 +41,6 @@ Il microfono sta in basso a destra, dove arriva il pollice. Il cestino è nascos
 
 </div>
 
-## Flat, a tessere. Tranne loro
-
-La palette viene dai widget a tessere colorate. Gli unici con volume e gradiente sono i demoni.
-
-<ul class="swatches">
-<li style="--c:#EDEBE6">Sfondo<span>#EDEBE6</span></li>
-<li style="--c:#0D0D0F;--t:#fff">Inchiostro<span>#0D0D0F</span></li>
-<li style="--c:#F2ECE0">Crema<span>#F2ECE0</span></li>
-<li style="--c:#7B3CF0;--t:#fff">Viola<span>#7B3CF0</span></li>
-<li style="--c:#FF8A1E">Arancio<span>#FF8A1E</span></li>
-<li style="--c:#FF3B21">Rosso<span>#FF3B21</span></li>
-<li style="--c:#FFD60A">Giallo<span>#FFD60A</span></li>
-<li style="--c:#2F6BFF;--t:#fff">Blu<span>#2F6BFF</span></li>
-</ul>
-
-Corpo, colore, forma degli occhi e voce nascono da un seme: ogni demone è diverso dagli altri, e resta sempre lo stesso.
-
-![Sei varianti del demone: occhi rossi, gialli, arancioni, assonnati e un corpo viola.](../../assets/work/demons/varianti.webp)
-
 ## Dall’appunto al mio iPhone
 
 Disegnato in Figma e costruito con Claude Code:

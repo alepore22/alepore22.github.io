@@ -35,6 +35,7 @@ Sito statico in Astro su GitHub Pages, con dominio **angelolepore.it** (`alepore
 | Dati strutturati per Google (Person, WebSite) | `src/schema.ts` |
 | Dominio, sitemap, font non incorporati | `astro.config.mjs` |
 | Pagina 404 | `src/pages/404.astro` |
+| Report degli audit SEO (fuori dal progetto) | `~/Desktop/angelolepore.it-audit/` |
 | Istruzioni per i motori di ricerca | `public/robots.txt` |
 | Colori, font, pulsanti, animazioni di ingresso | `src/styles/global.css` |
 | Barra in alto, footer, transizioni tra pagine | `src/layouts/Base.astro` |
@@ -76,7 +77,6 @@ npm run build
 - Outsoon: manca il link all'App Store.
 - TACA e Demons: i repository sono privati, quindi non hanno link; le date sono 11.2026.
 - Pharos e WeiToYou usano ancora le tavole di Behance con il testo dentro le immagini.
-- Demons: l'immagine delle varianti è a bassa risoluzione.
 - Su telefono il titolo "Ecco sette progetti…" va su quattro righe.
 - Cartelle locali fuori da git che si possono eliminare: `_old/` e `Asset/`.
 - SEO, cose che può fare solo Angelo: registrare `angelolepore.it` in Google Search Console (verifica DNS), inviare `https://angelolepore.it/sitemap-index.xml` e chiedere l'indicizzazione; mettere il link al sito su LinkedIn, Behance e App Store.
@@ -85,6 +85,29 @@ npm run build
 ## Storico
 
 Le voci più recenti stanno in cima.
+
+### 15 novembre 2026 — Demons senza "Flat, a tessere"
+- Eliminata dal case study di Demons la sezione "Flat, a tessere. Tranne loro": la frase sulla palette, i campioni di colore, la frase sui semi e l'immagine delle sei varianti. Ora si passa dal wireframe a "Dall'appunto al mio iPhone".
+- Così sparisce anche l'ultimo problema di contrasto (il campione blu). L'immagine `src/assets/work/demons/varianti.webp` resta nella cartella ma non è più usata.
+- README: lo stile `swatches` resta disponibile, con la sintassi scritta lì, perché nessun progetto lo usa più.
+- Pubblicato insieme alle correzioni dal secondo audit.
+
+### 15 novembre 2026 — Correzioni dal secondo audit SEO
+- Spostata la cartella `claude-seo/` (il repository del plugin SEO) fuori dal progetto, in `~/Work/claude-seo`. Le skill installate in `~/.claude/skills` sono copie e non dipendono da lei.
+- Immagini responsive anche nei case study: `image.layout: 'constrained'` in `astro.config.mjs`. Accìrete su telefono da 696 a 286 KiB.
+- Contrasto: le etichette delle testate ("Quando", "Cosa"…) non sono più al 75% di opacità, la gerarchia la fa il peso del testo. Tolta l'opacità anche ai codici della palette di Demons e alle etichette nella 404. Restava il campione blu della palette di Demons (4,49 contro 4,5), poi tolto insieme alla sezione.
+- Title della home: "Angelo Lepore, UI/UX designer e illustratore a Napoli".
+- Nuovo campo facoltativo `description` per Google nei progetti; usato per WeiToYou e Accìrete (151 e 143 caratteri). Il riassunto visibile non cambia.
+- In fondo a ogni progetto, prima di "Prossimo progetto", il blocco "Altri progetti": pillole colorate verso gli altri 5 progetti, prima quelli della stessa famiglia.
+- Aggiunto `public/favicon.ico`. Tradotto in italiano solo il testo del `<title>` dentro `src/assets/portrait.svg`: il disegno non è cambiato.
+- Lighthouse in locale (mobile): Accìrete, Gododeck, WeiToYou accessibilità 100; Demons 96 per il campione blu (poi tolto).
+- Salvato in un commit, inviato su `redesign` e pubblicato su `main`.
+
+### 15 novembre 2026 — Nuovo audit SEO dopo i fix
+- Rifatto l'audit sul sito online: punteggio **82/100** (stamattina 56). Report in `~/Desktop/angelolepore.it-audit/` (`FULL-AUDIT-REPORT.md`, `ACTION-PLAN.md`); l'audit precedente è nella sottocartella `precedente-2026-11-15-prima-dei-fix/`.
+- Lighthouse in locale: home mobile 99/100/100/100, LCP 1,8 s, CLS 0. PageSpeed Insights non disponibile (quota esaurita); niente dati di campo.
+- Nessun problema critico o grave. Da fare nel codice: immagini responsive nei case study, contrasto delle etichette nelle testate di 4 progetti, description più lunghe, title home con "Napoli", link tra progetti, `favicon.ico`.
+- Nessuna modifica al sito in questa richiesta.
 
 ### 15 novembre 2026 — Miglioramenti SEO (dall'audit in `~/Desktop/angelolepore.it-audit`)
 - Dominio: `site` ora è `https://angelolepore.it`. Canonical, `og:url` e `og:image` non puntano più a `alepore22.github.io`.

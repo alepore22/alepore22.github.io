@@ -5,6 +5,7 @@ category: UI/UX Design
 headline: "app iOS per ritrovare gli amici"
 group: uiux
 summary: "Un’app iOS per ritrovare gli amici dopo essersi separati, seguendo un filo rosso."
+description: "WeiToYou, app iOS per ritrovare gli amici dopo essersi separati seguendo un filo rosso: concept, palette, tipografia e schermate, dalla carta ai pixel."
 role: UI e UX design
 tools: [Figma]
 cover: ../../assets/covers/weitoyou.webp

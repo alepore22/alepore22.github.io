@@ -14,12 +14,13 @@ npm run build    # output in dist/
 2. Copy one of the files in `src/content/work/` and edit its front matter:
    `title`, `date`, `category`, `headline` (what it is in a few words, for the browser tab and Google: "timer Pomodoro per iOS"), `group` (`uiux`, `grafica` or `app`: the filter on the home page), `summary`,
    `cover`, `coverAlt`, `color` and `ink` (the tile colours), `order`.
-   Optional: `video` (a looping clip under `public/media/`, shown instead of the cover), `note` (the handwritten label), `behance`.
+   Optional: `description` (a longer text for Google, 120–155 characters, when the summary is short), `video` (a looping clip under `public/media/`, shown instead of the cover), `note` (the handwritten label), `behance`.
 3. Write the case study below the front matter in Markdown. Text is real text; pictures are only pictures.
    - Pictures on consecutive lines become a row (2, 3 or 4 across).
    - `<div class="split">` … `</div>` puts words beside a picture; `split flip` swaps the sides, `split narrow` is for a phone screen.
      Leave a blank line after the opening tag and before the closing one.
-   - `<div class="detti">` and `<ul class="swatches">` are used in Accìrete and Demons: copy them from there.
+   - `<div class="detti">` is used in Accìrete: copy it from there.
+   - `<ul class="swatches">` shows a palette in real colours, one `<li style="--c:#7B3CF0;--t:#fff">Viola<span>#7B3CF0</span></li>` per colour (`--t` is the text colour, dark by default).
 
 Name, email, city and social links live in `src/site.ts`; the structured data for search engines is built from them in `src/schema.ts`.
 The sitemap is generated at build time; `public/robots.txt` points to it.
